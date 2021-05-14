@@ -3,6 +3,8 @@ import mongoose, { Schema } from 'mongoose';
 mongoose.set('useFindAndModify', false);
 
 // create a PostSchema with a title field
+// Turning on timestamps allows us to track time of post creation/update...
+// via createdAt & updatedAt.
 const PostSchema = new Schema({
     id: String,
     title: String,
@@ -10,9 +12,9 @@ const PostSchema = new Schema({
     coverUrl: String,
     tags: String,
 }, {
+    timestamps: true,
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
-    timestamps: true,
 });
 
 // create PostModel class from schema

@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 
 import apiRouter from './router';
 
+// Code taken from instructions.
+
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/platform_db';
 
 mongoose.connect(mongoURI).then(() => {
