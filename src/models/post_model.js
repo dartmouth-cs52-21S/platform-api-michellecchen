@@ -12,9 +12,9 @@ const PostSchema = new Schema({
     coverUrl: String,
     tags: String,
 }, {
-    timestamps: true,
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
+    timestamps: true,
 });
 
 // create PostModel class from schema
