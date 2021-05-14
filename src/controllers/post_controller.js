@@ -1,7 +1,6 @@
 import Post from '../models/post_model';
 
 // Reference docs: https://mongoosejs.com/docs/api/model.html
-// Decided to use req/res rather than async out of familiarity
 
 export const createPost = (req, res) => {
     const post = new Post();
@@ -17,7 +16,7 @@ export const createPost = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error });
-        });
+    });
 };
 
 export const getPosts = (req, res) => {
@@ -26,11 +25,14 @@ export const getPosts = (req, res) => {
 
     return Post.find()
         .then((result) => {
-            // ** SORT BY TIME OF CREATION: use createdAt (mongoose)
-            res.json(result).sort({ createdAt: 1 });
+            // ** SORT BY TIME OF CREATION: use createdAt
+            result.sort((a, b) => { 
+                return ((a.createdAt < b.createdAt ) ? 1 : -1);
+            });
+            res.json(result);
         })
         .catch((error) => {
-            res.status(500).json({ error });
+        res.status(500).json({ error });
         });
 };
 
@@ -53,9 +55,10 @@ export const deletePost = (req, res) => {
 
     Post.findByIdAndRemove(req.params.id)
         .then(() => {
-            res.json({ message: 'Post deleted.' });
-        })
-        .catch((error) => {
+            res.json({
+                message: 'Your post has been deleted.',
+            });
+        }).catch((error) => {
             res.status(500).json({ error });
         });
 };
@@ -64,11 +67,11 @@ export const updatePost = (req, res) => {
     // await updating a post by id
     // return *updated* post
 
-    const updatedFields = {};
-    if ('title' in req.body) updatedFields.title = req.body.title;
-    if ('content' in req.body) updatedFields.content = req.body.content;
-    if ('coverUrl' in req.body) updatedFields.coverUrl = req.body.coverUrl;
-    if ('tags' in req.body) updatedFields.tags = req.body.tags;
+    const updatedFields = req.body;
+    // if ('title' in req.body) updatedFields.title = req.body.title;
+    // if ('content' in req.body) updatedFields.content = req.body.content;
+    // if ('coverUrl' in req.body) updatedFields.coverUrl = req.body.coverUrl;
+    // if ('tags' in req.body) updatedFields.tags = req.body.tags;
 
     Post.findByIdAndUpdated(req.params.id, updatedFields, { new: true })
         .then((result) => {
