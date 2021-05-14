@@ -27,7 +27,9 @@ export const getPosts = (req, res) => {
         .then((result) => {
             // Got help from a TA with this;
             // Using createdAt (timestamp) to sort
-            result.sort((a,b) => { return ((a.createdAt < b.createdAt ) ? 1 : -1); });
+            result.sort((a,b) => {
+                return ((a.createdAt < b.createdAt) ? 1 : -1 );
+            });
             res.json(result);
         })
         .catch((error) => {
