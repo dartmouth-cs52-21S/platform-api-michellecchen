@@ -50,7 +50,7 @@ export const deletePost = (req, res) => {
     //return confirmation
 
     Post.findByIdAndRemove(req.params.id)
-        .then(() => {
+        .then((result) => {
             res.json({ message: 'Post deleted.' });
         }).catch((error) => {
             res.status(500).json({ error });
@@ -67,7 +67,7 @@ export const updatePost = (req, res) => {
     if ('coverUrl' in req.body) updatedFields.coverUrl = req.body.coverUrl;
     if ('tags' in req.body) updatedFields.tags = req.body.tags;
 
-    Post.findByIdAndUpdated(req.params.id, updatedFields, { new: true })
+    Post.findByIdAndUpdate(req.params.id, updatedFields, { new: true })
         .then((result) => {
             res.json(result);
         })
