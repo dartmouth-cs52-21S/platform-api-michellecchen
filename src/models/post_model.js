@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 mongoose.set('useFindAndModify', false);
 
-// create a PostSchema with a title field
+// Create a PostSchema with a title field
 // Turning on timestamps allows us to track time of post creation/update
 const PostSchema = new Schema({
     id: String,
