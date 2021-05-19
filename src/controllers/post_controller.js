@@ -35,8 +35,7 @@ export const getPosts = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error });
-        })
-        .populate('author');
+        });
 };
 
 export const getPost = (req, res) => {
@@ -49,8 +48,7 @@ export const getPost = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error });
-        })
-        .populate('author');
+        });
 };
 
 export const deletePost = (req, res) => {

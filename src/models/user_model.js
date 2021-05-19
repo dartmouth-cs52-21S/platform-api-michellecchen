@@ -11,7 +11,6 @@ const UserSchema = new Schema({
         lowercase: true,
     },
     password: { type: String },
-    userName: { type: String },
 }, {
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
