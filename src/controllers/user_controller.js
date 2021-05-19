@@ -16,15 +16,15 @@ export const signin = (req, res, next) => {
 // Create a new User object & save it, but first verify that the user doesn't already exist in the system
 // AKA check their email address.
 export const signup = (req, res, next) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email } = req.body.email;
+    const { password } = req.body.password;
 
     // Authenticate that these both exist
     // Mostly arbitrary status codes
     if (!email || !password) return res.status(422).send('Please check that you have filled out an email & password.');
 
     // Authenticate that the email is not a duplicate (that a user does not already exist)
-    User.find({ 'email': email })
+    User.find({ email })
         .then((result) => {
             if (result.length !== 0) {
                 return res.status(500).send('This email is already taken. Please sign in with your existing email or use another one.');
@@ -40,8 +40,8 @@ export const signup = (req, res, next) => {
                         res.status(500).json({ error });
                 });
             }
-        })
-}
+        });
+};
 
 // encodes a new token for a user object
 function tokenForUser(user) {
