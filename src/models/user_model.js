@@ -11,6 +11,7 @@ const UserSchema = new Schema({
         lowercase: true,
     },
     password: { type: String },
+    userName: { type: String },
 }, {
     toObject: { virtuals: true },
     toJSON: { virtuals: true },
@@ -18,17 +19,7 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function beforeUserSave(next) {
-    // this is a reference to our model
-    // the function runs in some other context so DO NOT bind it
     const user = this;
-
-    // TODO: do stuff here
-
-    // when done run the **next** callback with no arguments
-    // call next with an error if you encounter one
-    // return next();
-
-    // Only hash the pw if it's been modified or is new.
     if (!user.isModified('password')) {
         return next();
     }

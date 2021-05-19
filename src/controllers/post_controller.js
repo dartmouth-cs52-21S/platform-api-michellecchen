@@ -9,7 +9,7 @@ export const createPost = (req, res) => {
     post.content = req.body.content;
     post.tags = req.body.tags;
     post.coverUrl = req.body.coverUrl;
-    post.author = req.user.id;
+    post.author = req.user._id;
 
     post.save()
         .then((result) => {
@@ -35,7 +35,8 @@ export const getPosts = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error });
-        });
+        })
+        .populate('author');
 };
 
 export const getPost = (req, res) => {
@@ -48,7 +49,8 @@ export const getPost = (req, res) => {
         })
         .catch((error) => {
             res.status(500).json({ error });
-        });
+        })
+        .populate('author');
 };
 
 export const deletePost = (req, res) => {
